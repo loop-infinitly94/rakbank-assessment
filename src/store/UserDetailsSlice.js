@@ -1,19 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    name: "Shyam Kumar",
-    email: "shyamkumar2794@gmail.com",
-    mobile: "+971582204261",
-    addr1: "Al Barsha 1",
-    addr2: "Barsha",
-    addr3: "Barsha",
+    name: "",
+    email: "",
+    mobile: "",
+    addr1: "",
+    addr2: "",
+    addr3: "",
     currentStep: 0
 }
 
 const userDetailsSlice = createSlice({
     name: "userDetails",
     initialState,
-    reducers: {}
+    reducers: {
+        userDetailsModified(state, action) {
+            state = { ...state, ...action.payload }
+            return state
+        },
+        updateStepper(state, action) {
+            state.currentStep = action.payload
+            return state
+        }
+    }
 })
 
-export default userDetailsSlice.reducer
+export const { userDetailsModified, updateStepper } = userDetailsSlice.actions;
+
+export default userDetailsSlice.reducer;

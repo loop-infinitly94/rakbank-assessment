@@ -8,13 +8,15 @@ import Typography from "@mui/material/Typography";
 import { Card } from "@mui/material";
 import { current } from "@reduxjs/toolkit";
 import "./Stepper.css";
+import { useSelector } from "react-redux";
 
 export default function StepperComponent({
   steps,
   stepComponent,
   stepsHeader,
 }) {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const activeStep = useSelector((state) => state.userDetails).currentStep;
+
   const [completed, setCompleted] = React.useState({});
 
   const totalSteps = () => {

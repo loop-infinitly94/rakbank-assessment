@@ -8,19 +8,22 @@ function FormInput({
   type = "text",
   control,
   errors,
+  value,
+  onChange,
   ...props
 }) {
   return (
     <Controller
       name={name}
       control={control}
-    //   rules={rules}
+      //   rules={rules}
       defaultValue={defaultValue}
-      render={({ field: { onChange, value, onBlur, name } }) => (
+      render={({ field: { onBlur } }) => (
         <TextField
+          name={name}
           value={value}
-          onChange={(ev) => onChange(ev.target.value)}
           type={type}
+          onChange={onChange}
           {...props}
           size="small"
         />
