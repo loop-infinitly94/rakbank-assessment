@@ -8,7 +8,8 @@ import Typography from "@mui/material/Typography";
 import { Card } from "@mui/material";
 import { current } from "@reduxjs/toolkit";
 import "./Stepper.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateStepper } from "../../store/UserDetailsSlice";
 
 export default function StepperComponent({
   steps,
@@ -16,6 +17,7 @@ export default function StepperComponent({
   stepsHeader,
 }) {
   const activeStep = useSelector((state) => state.userDetails).currentStep;
+  const dispatch = useDispatch();
 
   const [completed, setCompleted] = React.useState({});
 
@@ -42,15 +44,15 @@ export default function StepperComponent({
           // find the first step that has been completed
           steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
-    setActiveStep(newActiveStep);
+    dispatch(updateStepper(newActiveStep));
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    dispatch(updateStepper((prevActiveStep) => prevActiveStep - 1));
   };
 
   const handleStep = (step) => () => {
-    setActiveStep(step);
+    dispatch(updateStepper(step));
   };
 
   const handleComplete = () => {
@@ -61,7 +63,7 @@ export default function StepperComponent({
   };
 
   const handleReset = () => {
-    setActiveStep(0);
+    dispatch(updateStepper(0));
     setCompleted({});
   };
 
