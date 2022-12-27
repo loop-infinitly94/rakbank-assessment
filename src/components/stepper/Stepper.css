@@ -1,0 +1,22 @@
+.stepeprComponent {
+    background-color: #F5F5F5;
+    padding: 20px;
+}
+
+.stepper {
+    padding: 20px;
+}
+
+.stepperHeader {
+    padding: 20px;
+}
+
+.stepperHeader {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.eachStep {
+    display: flex;
+    flex-direction: column;
+}
