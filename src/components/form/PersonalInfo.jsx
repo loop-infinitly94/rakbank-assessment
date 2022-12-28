@@ -2,13 +2,18 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { updateStepper, userDetailsModified } from "../../store/UserDetailsSlice";
+import {
+  personalDetailsModified,
+  postUserDetails,
+  updateStepper,
+} from "../../store/UserDetailsSlice";
 import "./Form.css";
 import FormInput from "./FormInput";
 import NextStepHandler from "./NextStepHandler";
 
 export default function PersonalInfo() {
-  const userDetails = useSelector((state) => state.userDetails);
+  const storeData = useSelector((state) => state.userDetails);
+  const personalDetails = storeData.userData.personalDetails;
   const dispatch = useDispatch();
   const {
     control,
@@ -18,18 +23,30 @@ export default function PersonalInfo() {
 
   const onSubmit = (data) => {
     console.log(data, "data");
-    
-    dispatch(updateStepper(userDetails.currentStep + 1));
+    const { name, email, mobile, addr1, addr2, addr3 } = data;
+    let personalDetails = {
+      name,
+      email,
+      mobile,
+      addr1,
+      addr2,
+      addr3,
+    };
+
+    console.log({ personalDetails });
+    return;
+    // dispatch(postUserDetails({ personalDetails }));
   };
 
   const userDetailsChanged = (ev) => {
     let data = {
       [ev.target.name]: ev.target.value,
     };
-    dispatch(userDetailsModified(data));
+    dispatch(personalDetailsModified(data));
   };
 
-  console.log(userDetails, "sad");
+  //   console.log(errors, "aaaa");
+  console.log(personalDetails, "sad");
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
@@ -44,15 +61,15 @@ export default function PersonalInfo() {
             <Typography>Name</Typography>
             <FormInput
               name={"name"}
-              value={userDetails.name}
+              formValue={personalDetails.name}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
               }}
               defaultValue=""
               type="text"
-              onChange={userDetailsChanged}
-              // errors={errors}
+              onChangeText={userDetailsChanged}
+              errors={errors}
               control={control}
             />
           </div>
@@ -60,15 +77,18 @@ export default function PersonalInfo() {
             <Typography>Email</Typography>
             <FormInput
               name={"email"}
-              value={userDetails.email}
+              formValue={personalDetails.email}
               rules={{
-                required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
+                required: "Email is required",
+                pattern: {
+                  value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                  message: "Email is Not Valid",
+                },
               }}
               defaultValue=""
               type="email"
-              // errors={errors}
-              onChange={userDetailsChanged}
+              errors={errors}
+              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -76,15 +96,15 @@ export default function PersonalInfo() {
             <Typography>Mobile Number</Typography>
             <FormInput
               name={"mobile"}
-              value={userDetails.mobile}
+              formValue={personalDetails.mobile}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
               }}
               defaultValue=""
               type="text"
-              // errors={errors}
-              onChange={userDetailsChanged}
+              errors={errors}
+              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -92,15 +112,15 @@ export default function PersonalInfo() {
             <Typography>Address Line 1</Typography>
             <FormInput
               name={"addr1"}
-              value={userDetails.addr1}
+              formValue={personalDetails.addr1}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
               }}
               defaultValue=""
               type="text"
-              // errors={errors}
-              onChange={userDetailsChanged}
+              errors={errors}
+              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -108,15 +128,15 @@ export default function PersonalInfo() {
             <Typography>Address Line 2</Typography>
             <FormInput
               name={"addr2"}
-              value={userDetails.addr2}
+              formValue={personalDetails.addr2}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
               }}
               defaultValue=""
               type="text"
-              // errors={errors}
-              onChange={userDetailsChanged}
+              errors={errors}
+              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -124,15 +144,15 @@ export default function PersonalInfo() {
             <Typography>Address Line 3</Typography>
             <FormInput
               name={"addr3"}
-              value={userDetails.addr3}
+              formValue={personalDetails.addr3}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
               }}
               defaultValue=""
               type="text"
-              // errors={errors}
-              onChange={userDetailsChanged}
+              errors={errors}
+              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
