@@ -32,6 +32,7 @@ const initialState = {
 }
 
 export const postUserDetails = createAsyncThunk('users/postUserDetails', async (data) => {
+    console.log(data, "testt")
     try {
         const response = await axios.post(POST_URL, data);
         return response
@@ -45,8 +46,8 @@ const userDetailsSlice = createSlice({
     initialState,
     reducers: {
         personalDetailsModified(state, action) {
-            state.userData.personalDetails = { ...state.userData.personalDetails, ...action.payload }
-            // console.log(state, "ste")
+            state.userData = { ...state.userData, ...action.payload }
+
             return state
         },
         officeDetailsModified(state, action) {
@@ -65,9 +66,10 @@ const userDetailsSlice = createSlice({
                 state.status = "loading"
             })
             .addCase(postUserDetails.fulfilled, (state, action) => {
+                console.log(action.payload, "payloddddd")
                 state.status = "success"
 
-                state.userData = action.payload
+                state.userData = action.payload.data
             })
             .addCase(postUserDetails.rejected, (state, action) => {
                 state.status = "failed"

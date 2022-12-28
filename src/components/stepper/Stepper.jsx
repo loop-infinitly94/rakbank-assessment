@@ -16,7 +16,8 @@ export default function StepperComponent({
   stepComponent,
   stepsHeader,
 }) {
-  const activeStep = useSelector((state) => state.userDetails).currentStep;
+  const activeStep = useSelector((state) => state.userDetails).userData.meta
+    .currentStep;
   const dispatch = useDispatch();
 
   const [completed, setCompleted] = React.useState({});

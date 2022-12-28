@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -19,7 +19,16 @@ export default function PersonalInfo() {
     control,
     handleSubmit,
     formState: { errors, isValid },
+    setValue,
+    reset,
   } = useForm();
+
+  useEffect(() => {
+    console.log(personalDetails);
+    if (personalDetails) {
+      reset(personalDetails);
+    }
+  }, []);
 
   const onSubmit = (data) => {
     console.log(data, "data");
@@ -32,17 +41,19 @@ export default function PersonalInfo() {
       addr2,
       addr3,
     };
-
-    console.log({ personalDetails });
-    return;
-    // dispatch(postUserDetails({ personalDetails }));
-  };
-
-  const userDetailsChanged = (ev) => {
-    let data = {
-      [ev.target.name]: ev.target.value,
+    let updatedObj = {
+      personalDetails,
+      meta: {
+        currentStep: 1,
+      },
     };
-    dispatch(personalDetailsModified(data));
+    // console.log(state, "ste")
+    // postUserDetails(state.userData);
+    dispatch(personalDetailsModified(updatedObj));
+
+    // console.log({ personalDetails });
+    // return;
+    dispatch(postUserDetails(updatedObj));
   };
 
   //   console.log(errors, "aaaa");
@@ -61,14 +72,12 @@ export default function PersonalInfo() {
             <Typography>Name</Typography>
             <FormInput
               name={"name"}
-              formValue={personalDetails.name}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
               }}
               defaultValue=""
               type="text"
-              onChangeText={userDetailsChanged}
               errors={errors}
               control={control}
             />
@@ -77,7 +86,6 @@ export default function PersonalInfo() {
             <Typography>Email</Typography>
             <FormInput
               name={"email"}
-              formValue={personalDetails.email}
               rules={{
                 required: "Email is required",
                 pattern: {
@@ -88,7 +96,6 @@ export default function PersonalInfo() {
               defaultValue=""
               type="email"
               errors={errors}
-              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -96,7 +103,6 @@ export default function PersonalInfo() {
             <Typography>Mobile Number</Typography>
             <FormInput
               name={"mobile"}
-              formValue={personalDetails.mobile}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
@@ -104,7 +110,6 @@ export default function PersonalInfo() {
               defaultValue=""
               type="text"
               errors={errors}
-              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -112,7 +117,6 @@ export default function PersonalInfo() {
             <Typography>Address Line 1</Typography>
             <FormInput
               name={"addr1"}
-              formValue={personalDetails.addr1}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
@@ -120,7 +124,6 @@ export default function PersonalInfo() {
               defaultValue=""
               type="text"
               errors={errors}
-              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -128,7 +131,6 @@ export default function PersonalInfo() {
             <Typography>Address Line 2</Typography>
             <FormInput
               name={"addr2"}
-              formValue={personalDetails.addr2}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
@@ -136,7 +138,6 @@ export default function PersonalInfo() {
               defaultValue=""
               type="text"
               errors={errors}
-              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -144,7 +145,6 @@ export default function PersonalInfo() {
             <Typography>Address Line 3</Typography>
             <FormInput
               name={"addr3"}
-              formValue={personalDetails.addr3}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
@@ -152,7 +152,6 @@ export default function PersonalInfo() {
               defaultValue=""
               type="text"
               errors={errors}
-              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>

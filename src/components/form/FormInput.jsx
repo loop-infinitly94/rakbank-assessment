@@ -8,8 +8,6 @@ function FormInput({
   type = "text",
   control,
   errors,
-  formValue,
-  onChangeText,
   ...props
 }) {
   return (
@@ -18,14 +16,13 @@ function FormInput({
       control={control}
       rules={rules}
       defaultValue={defaultValue}
-      render={({ field: { onChange, onBlur } }) => (
+      render={({ field: { onChange, onBlur, value } }) => (
         <TextField
           name={name}
-          value={formValue}
+          value={value}
           type={type}
           onChange={(ev) => {
             onChange(ev.target.value);
-            onChangeText(ev);
           }}
           error={errors && errors[name] ? true : false}
           helperText={errors && errors[name] ? errors[name].message : ""}

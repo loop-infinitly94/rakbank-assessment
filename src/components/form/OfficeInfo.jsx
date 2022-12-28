@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,31 +20,35 @@ export default function OfficeInfo() {
     control,
     handleSubmit,
     formState: { errors, isValid },
+    reset,
   } = useForm();
+
+  useEffect(() => {
+    console.log(officeDetails);
+    if (officeDetails) {
+      reset(officeDetails);
+    }
+  }, []);
 
   const onSubmit = (data) => {
     console.log(data, "data");
-    // const { name, email, mobile, addr1, addr2, addr3 } = data;
-    // let personalDetails = {
-    //   name,
-    //   email,
-    //   mobile,
-    //   addr1,
-    //   addr2,
-    //   addr3,
-    // };
-
-    // console.log({ personalDetails });
-    return;
-    // dispatch(postUserDetails({ personalDetails }));
-  };
-
-  const userDetailsChanged = (ev) => {
-    let data = {
-      [ev.target.name]: ev.target.value,
+    const { buildingName, city, landLine, addr1, addr2, pbNo } = data;
+    let officeDetails = {
+      buildingName,
+      city,
+      landLine,
+      addr1,
+      addr2,
+      pbNo,
     };
-    dispatch(officeDetailsModified(data));
+
+    dispatch(officeDetailsModified(officeDetails));
+
+    // console.log({ officeDetails });
+    return;
+    // dispatch(postUserDetails({ officeDetails }));
   };
+
   console.log(storeData, "sad");
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,14 +64,12 @@ export default function OfficeInfo() {
             <Typography>Building Name</Typography>
             <FormInput
               name={"buildingName"}
-              formValue={officeDetails.buildingName}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
               }}
               defaultValue=""
               type="text"
-              onChangeText={userDetailsChanged}
               errors={errors}
               control={control}
             />
@@ -76,7 +78,6 @@ export default function OfficeInfo() {
             <Typography>City/Town</Typography>
             <FormInput
               name={"city"}
-              formValue={officeDetails.city}
               rules={{
                 required: "Email is required",
                 pattern: {
@@ -87,7 +88,6 @@ export default function OfficeInfo() {
               defaultValue=""
               type="text"
               errors={errors}
-              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -95,7 +95,6 @@ export default function OfficeInfo() {
             <Typography>Telephone Number</Typography>
             <FormInput
               name={"landLine"}
-              formValue={officeDetails.landLine}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
@@ -103,7 +102,6 @@ export default function OfficeInfo() {
               defaultValue=""
               type="text"
               errors={errors}
-              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -111,7 +109,6 @@ export default function OfficeInfo() {
             <Typography>Address Line 1</Typography>
             <FormInput
               name={"addr1"}
-              formValue={officeDetails.addr1}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
@@ -119,7 +116,6 @@ export default function OfficeInfo() {
               defaultValue=""
               type="text"
               errors={errors}
-              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
@@ -127,7 +123,6 @@ export default function OfficeInfo() {
             <Typography>Address Line 2</Typography>
             <FormInput
               name={"addr2"}
-              formValue={officeDetails.addr2}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
@@ -135,15 +130,13 @@ export default function OfficeInfo() {
               defaultValue=""
               type="text"
               errors={errors}
-              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
           <div className="formGroup">
             <Typography>Postbox number</Typography>
             <FormInput
-              name={"addr3"}
-              formValue={officeDetails.pbNo}
+              name={"pbNo"}
               rules={{
                 required: <label>This is required</label>,
                 minLength: { value: 3, message: "Minimum 3 digit required" },
@@ -151,7 +144,6 @@ export default function OfficeInfo() {
               defaultValue=""
               type="text"
               errors={errors}
-              onChangeText={userDetailsChanged}
               control={control}
             />
           </div>
