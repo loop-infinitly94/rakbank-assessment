@@ -3,7 +3,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { putUserDetails } from "../../api/PutUser";
-import { deepEquals, getCurrentUser, metaDataValidation } from "../../utils/Utils";
+import {
+  deepEquals,
+  getCurrentUser,
+  metaDataValidation,
+} from "../../utils/Utils";
 import NextStepHandler from "./NextStepHandler";
 import Profile from "./ProfileInfo";
 

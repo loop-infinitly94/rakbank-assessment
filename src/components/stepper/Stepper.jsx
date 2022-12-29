@@ -21,10 +21,6 @@ export default function StepperComponent({
   console.log(store);
   let activeStep = useSelector((state) => state.userDetails).userData.meta
     .currentStep;
-  const selectedStep = useSelector((state) => state.userDetails).currentStep;
-  if (selectedStep <= activeStep) {
-    activeStep = selectedStep;
-  }
 
   const [completed, setCompleted] = React.useState({});
 
@@ -54,23 +50,8 @@ export default function StepperComponent({
     dispatch(updateStepper(newActiveStep));
   };
 
-  const handleBack = () => {
-    dispatch(updateStepper((prevActiveStep) => prevActiveStep - 1));
-  };
-
   const handleStep = (step) => () => {
-    console.log(activeStep, "test");
-    if (step >= activeStep) {
-      return;
-    }
     dispatch(updateStepper(step));
-  };
-
-  const handleComplete = () => {
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
   };
 
   const handleReset = () => {
@@ -90,7 +71,12 @@ export default function StepperComponent({
       }}
     >
       <div className="stepsHeader">{stepsHeader[activeStep]}</div>
-      <Stepper className="" nonLinear activeStep={activeStep} disabled={true}>
+      <Stepper
+        className=""
+        nonLinear
+        activeStep={activeStep ? activeStep : 0}
+        disabled={true}
+      >
         {steps.map((label, index) => (
           <Step
             key={label}
@@ -117,36 +103,6 @@ export default function StepperComponent({
         ) : (
           <React.Fragment>
             <div className="currentComponent">{stepComponent[activeStep]}</div>
-            {/* <div className="actionComponent">Action Part</div> */}
-            {/* <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
-              <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleNext} sx={{ mr: 1 }}>
-                Next
-              </Button>
-              {activeStep !== steps.length &&
-                (completed[activeStep] ? (
-                  <Typography
-                    variant="caption"
-                    sx={{ display: "inline-block" }}
-                  >
-                    Step {activeStep + 1} already completed
-                  </Typography>
-                ) : (
-                  <Button onClick={handleComplete}>
-                    {completedSteps() === totalSteps() - 1
-                      ? "Finish"
-                      : "Complete Step"}
-                  </Button>
-                ))}
-            </Box> */}
           </React.Fragment>
         )}
       </div>

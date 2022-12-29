@@ -3,19 +3,21 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { postUserDetails } from "../../api/PostUser";
+import { putUserDetails } from "../../api/PutUser";
 import {
   personalDetailsModified,
   updateStepper,
 } from "../../store/UserDetailsSlice";
-import { deepEquals } from "../../utils/Utils";
+import { deepEquals, getCurrentUser } from "../../utils/Utils";
 import "./Form.css";
 import FormInput from "./FormInput";
 import NextStepHandler from "./NextStepHandler";
 
+const Office_Info = 1;
+
 export default function PersonalInfo() {
   const storeData = useSelector((state) => state.userDetails);
   const storedPersonalDetails = storeData.userData.personalDetails;
-  const currentStep = storeData.currentStep;
   const isLoading = storeData.status;
   const dispatch = useDispatch();
   const {
@@ -44,7 +46,7 @@ export default function PersonalInfo() {
     let updatedObj = {
       personalDetails,
       meta: {
-        currentStep: 1,
+        currentStep: Office_Info,
       },
     };
 
@@ -52,15 +54,17 @@ export default function PersonalInfo() {
       personalDetails,
       storedPersonalDetails
     );
+    const userId = getCurrentUser();
 
     if (checkIfDataChanged) {
-      dispatch(updateStepper(currentStep + 1));
+      dispatch(updateStepper(Office_Info));
       return;
+    } else if (userId) {
+      dispatch(putUserDetails(updatedObj));
+    } else {
+      dispatch(postUserDetails(updatedObj));
     }
-
     dispatch(personalDetailsModified(updatedObj));
-    dispatch(postUserDetails(updatedObj));
-    dispatch(updateStepper(currentStep + 1));
   };
 
   return (
@@ -79,7 +83,10 @@ export default function PersonalInfo() {
               name={"name"}
               rules={{
                 required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
+                minLength: {
+                  value: 2,
+                  message: "Minimum 2 characters required",
+                },
               }}
               defaultValue=""
               type="text"
@@ -110,7 +117,10 @@ export default function PersonalInfo() {
               name={"mobile"}
               rules={{
                 required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
+                pattern: {
+                  value: /^\d{10}$/,
+                  message: "Mobile number  is Not Valid",
+                },
               }}
               defaultValue=""
               type="text"
@@ -124,7 +134,10 @@ export default function PersonalInfo() {
               name={"addr1"}
               rules={{
                 required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
+                minLength: {
+                  value: 2,
+                  message: "Minimum 2 characters required",
+                },
               }}
               defaultValue=""
               type="text"
@@ -138,7 +151,10 @@ export default function PersonalInfo() {
               name={"addr2"}
               rules={{
                 required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
+                minLength: {
+                  value: 2,
+                  message: "Minimum 2 characters required",
+                },
               }}
               defaultValue=""
               type="text"
@@ -150,10 +166,6 @@ export default function PersonalInfo() {
             <Typography>Address Line 3</Typography>
             <FormInput
               name={"addr3"}
-              rules={{
-                required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
-              }}
               defaultValue=""
               type="text"
               errors={errors}

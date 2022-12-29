@@ -12,11 +12,11 @@ import "./Form.css";
 import FormInput from "./FormInput";
 import NextStepHandler from "./NextStepHandler";
 
+const Confirmation_step = 2;
+
 export default function OfficeInfo() {
   const storeData = useSelector((state) => state.userDetails);
   const storedOfficeDetails = storeData.userData.officeDetails;
-  const currentStep = storeData.currentStep;
-  const userId = getCurrentUser();
   const dispatch = useDispatch();
   const {
     control,
@@ -33,7 +33,6 @@ export default function OfficeInfo() {
   }, []);
 
   const onSubmit = (data) => {
-    console.log(data, "data");
     const { buildingName, city, landLine, addr1, addr2, pbNo } = data;
     let officeDetails = {
       buildingName,
@@ -47,20 +46,19 @@ export default function OfficeInfo() {
     let updatedObj = {
       officeDetails,
       meta: {
-        currentStep: 2,
+        currentStep: Confirmation_step,
       },
     };
 
     const checkIfDataChanged = deepEquals(officeDetails, storedOfficeDetails);
 
     if (checkIfDataChanged) {
-      dispatch(updateStepper(currentStep + 1));
+      dispatch(updateStepper(Confirmation_step));
       return;
     }
 
     dispatch(officeDetailsModified(updatedObj));
     dispatch(putUserDetails(updatedObj));
-    dispatch(updateStepper(currentStep + 1));
   };
 
   return (
@@ -79,7 +77,10 @@ export default function OfficeInfo() {
               name={"buildingName"}
               rules={{
                 required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
+                minLength: {
+                  value: 2,
+                  message: "Minimum 2 characters required",
+                },
               }}
               defaultValue=""
               type="text"
@@ -92,10 +93,10 @@ export default function OfficeInfo() {
             <FormInput
               name={"city"}
               rules={{
-                required: "Email is required",
-                pattern: {
-                  value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-                  message: "Email is Not Valid",
+                required: <label>This is required</label>,
+                minLength: {
+                  value: 2,
+                  message: "Minimum 2 characters required",
                 },
               }}
               defaultValue=""
@@ -110,7 +111,10 @@ export default function OfficeInfo() {
               name={"landLine"}
               rules={{
                 required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
+                pattern: {
+                  value: /^\d{10}$/,
+                  message: "Telephone number  is Not Valid",
+                },
               }}
               defaultValue=""
               type="text"
@@ -124,7 +128,10 @@ export default function OfficeInfo() {
               name={"addr1"}
               rules={{
                 required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
+                minLength: {
+                  value: 2,
+                  message: "Minimum 2 characters required",
+                },
               }}
               defaultValue=""
               type="text"
@@ -138,7 +145,10 @@ export default function OfficeInfo() {
               name={"addr2"}
               rules={{
                 required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
+                minLength: {
+                  value: 2,
+                  message: "Minimum 2 characters required",
+                },
               }}
               defaultValue=""
               type="text"
@@ -152,7 +162,10 @@ export default function OfficeInfo() {
               name={"pbNo"}
               rules={{
                 required: <label>This is required</label>,
-                minLength: { value: 3, message: "Minimum 3 digit required" },
+                minLength: {
+                  value: 4,
+                  message: "Minimum 4 characters required",
+                },
               }}
               defaultValue=""
               type="text"

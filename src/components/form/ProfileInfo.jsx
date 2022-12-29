@@ -35,7 +35,7 @@ const Profile = () => {
     const meta = {
       avatar: pictureSrc,
     };
-    dispatch(updateMetaData(meta));
+    dispatch(updateMetaData({ meta }));
   });
 
   const handleUpload = async (event) => {
@@ -45,7 +45,7 @@ const Profile = () => {
     const meta = {
       avatar: image,
     };
-    dispatch(updateMetaData(meta));
+    dispatch(updateMetaData({ meta }));
     // setPicture(image);
   };
 
@@ -53,7 +53,7 @@ const Profile = () => {
     const meta = {
       avatar: "",
     };
-    dispatch(updateMetaData(meta));
+    dispatch(updateMetaData({ meta }));
   };
 
   const cameraDialog = (
@@ -112,7 +112,7 @@ const Profile = () => {
       signature,
     };
 
-    dispatch(updateMetaData(meta));
+    dispatch(updateMetaData({ meta }));
   };
 
   const resetSignature = (e) => {
@@ -122,7 +122,7 @@ const Profile = () => {
       signature: "",
     };
 
-    dispatch(updateMetaData(meta));
+    dispatch(updateMetaData({ meta }));
   };
 
   const signatureDialog = (

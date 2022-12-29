@@ -22,9 +22,7 @@ function App() {
     if (userId) {
       dispatch(getUserDetails(userId));
     }
-
-    // return () => dispatch(getUserDetails());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="MainContainer">

@@ -30,15 +30,16 @@ const initialState = {
     },
     status: 'idle',
     error: null,
-    currentStep: 0
+    currentStep: null
 }
 
-const setData = (data) => {
+const setStoreData = (userData, data) => {
     return {
-        personalDetails: data.personalDetails,
-        officeDetails: data.officeDetails,
-        meta: data.meta,
-        id: data.id
+        personalDetails: { ...userData.personalDetails, ...data.personalDetails },
+        officeDetails: { ...userData.officeDetails, ...data.officeDetails },
+        meta: { ...userData.meta, ...data.meta },
+        id: data.id,
+        currentStep: data.meta.currentStep ? data.meta.currentStep : userData.meta.currentStep
     }
 }
 
@@ -47,19 +48,22 @@ const userDetailsSlice = createSlice({
     initialState,
     reducers: {
         personalDetailsModified(state, action) {
-            state.userData = { ...state.userData, ...action.payload }
+            state.userData = setStoreData(state.userData, action.payload)
             return state
         },
         officeDetailsModified(state, action) {
-            state.userData.officeDetails = { ...state.userData.officeDetails, ...action.payload }
+            state.userData = setStoreData(state.userData, action.payload)
             return state
         },
         updateMetaData(state, action) {
-            state.userData.meta = { ...state.userData.meta, ...action.payload }
+            console.log(action.payload)
+            state.userData = setStoreData(state.userData, action.payload)
             return state
         },
         updateStepper(state, action) {
-            state.currentStep = action.payload
+            let currentStep = { "currentStep": action.payload }
+            state.currentStep = currentStep;
+            state.userData.meta = { ...state.userData.meta, ...currentStep }
             return state
         }
     },
@@ -71,11 +75,10 @@ const userDetailsSlice = createSlice({
             .addCase(postUserDetails.fulfilled, (state, action) => {
                 state.status = "success"
                 localStorage.setItem("userId", action.payload.data.id)
-                state.userData = setData(action.payload.data)
+                state.userData = setStoreData(state.userData, action.payload.data)
             })
             .addCase(postUserDetails.rejected, (state, action) => {
                 state.status = "failed"
-
                 state.error = action.error.message
             })
 
@@ -85,7 +88,7 @@ const userDetailsSlice = createSlice({
             })
             .addCase(putUserDetails.fulfilled, (state, action) => {
                 state.status = "success"
-                state.userData = setData(action.payload.data)
+                state.userData = setStoreData(state.userData, action.payload.data)
             })
             .addCase(putUserDetails.rejected, (state, action) => {
                 state.status = "failed"
@@ -93,13 +96,15 @@ const userDetailsSlice = createSlice({
                 state.error = action.error.message
             })
 
+            //getUser
+
             .addCase(getUserDetails.pending, (state, action) => {
                 state.status = "loading"
             })
             .addCase(getUserDetails.fulfilled, (state, action) => {
-
                 state.status = "success"
-                state.userData = setData(action.payload.data)
+                state.currentStep = action.payload.data.meta.currentStep
+                state.userData = setStoreData(state.userData, action.payload.data)
             })
             .addCase(getUserDetails.rejected, (state, action) => {
                 state.status = "failed"
