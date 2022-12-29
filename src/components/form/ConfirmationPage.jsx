@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import NextStepHandler from "./NextStepHandler";
+import Profile from "./ProfileInfo";
 
 export default function ConfirmationPage() {
   const storeData = useSelector((state) => state.userDetails);
@@ -83,7 +84,9 @@ export default function ConfirmationPage() {
               <Typography>{personalDetails.pbNo}</Typography>
             </div>
           </Grid>
-          <Grid item xs={4}></Grid>
+          <Grid item xs={4}>
+            <Profile />
+          </Grid>
         </Grid>
       </div>
       <div

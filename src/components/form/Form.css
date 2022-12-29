@@ -25,3 +25,28 @@ input[type="submit"] {
     padding: 10px;
     border-radius: 6px;
 }
+
+.profileInfoContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    gap: 20px;
+}
+
+.avatarContainer,
+.signatureContainer {
+    display: flex;
+    /* justify-content: space-between; */
+    border-radius: 10px;
+    border: 1px dotted black;
+    padding: 20px;
+    justify-content: space-evenly;
+}
+
+.captureForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
