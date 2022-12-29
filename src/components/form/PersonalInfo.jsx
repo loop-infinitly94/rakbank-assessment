@@ -52,14 +52,14 @@ export default function PersonalInfo() {
       storedPersonalDetails
     );
 
-    alert(checkIfDataChanged);
     if (checkIfDataChanged) {
-      updateStepper(currentStep + 1);
+      dispatch(updateStepper(currentStep + 1));
       return;
     }
 
     dispatch(personalDetailsModified(updatedObj));
     dispatch(postUserDetails(updatedObj));
+    dispatch(updateStepper(currentStep + 1));
   };
 
   return (

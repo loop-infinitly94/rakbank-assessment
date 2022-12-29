@@ -1,6 +1,19 @@
 .stepeprComponent {
     background-color: #F5F5F5;
     padding: 20px;
+    height: calc(100% - 90px);
+    display: flex;
+    /* width: 100%; */
+    align-items: center;
+}
+
+.currentComponent {
+    padding: 20px;
+    border: 1px dotted black;
+    border-radius: 20px;
+    display: flex;
+    flex: 1;
+
 }
 
 .stepper {

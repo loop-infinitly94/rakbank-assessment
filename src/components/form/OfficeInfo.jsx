@@ -2,19 +2,21 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { putUserDetails } from "../../api/PutUser";
 import {
   officeDetailsModified,
-  //   personalDetailsModified,
-  postUserDetails,
   updateStepper,
 } from "../../store/UserDetailsSlice";
+import { deepEquals } from "../../utils/Utils";
 import "./Form.css";
 import FormInput from "./FormInput";
 import NextStepHandler from "./NextStepHandler";
 
 export default function OfficeInfo() {
   const storeData = useSelector((state) => state.userDetails);
-  const officeDetails = storeData.userData.officeDetails;
+  const storedOfficeDetails = storeData.userData.officeDetails;
+  const currentStep = storeData.currentStep;
+
   const dispatch = useDispatch();
   const {
     control,
@@ -24,9 +26,9 @@ export default function OfficeInfo() {
   } = useForm();
 
   useEffect(() => {
-    console.log(officeDetails);
-    if (officeDetails) {
-      reset(officeDetails);
+    console.log(storedOfficeDetails);
+    if (storedOfficeDetails) {
+      reset(storedOfficeDetails);
     }
   }, []);
 
@@ -42,14 +44,25 @@ export default function OfficeInfo() {
       pbNo,
     };
 
-    dispatch(officeDetailsModified(officeDetails));
+    let updatedObj = {
+      officeDetails,
+      meta: {
+        currentStep: 2,
+      },
+    };
 
-    // console.log({ officeDetails });
-    return;
-    // dispatch(postUserDetails({ officeDetails }));
+    const checkIfDataChanged = deepEquals(officeDetails, storedOfficeDetails);
+
+    if (checkIfDataChanged) {
+      dispatch(updateStepper(currentStep + 1));
+      return;
+    }
+
+    dispatch(officeDetailsModified(updatedObj));
+    dispatch(putUserDetails(updatedObj));
+    dispatch(updateStepper(currentStep + 1));
   };
 
-  console.log(storeData, "sad");
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid

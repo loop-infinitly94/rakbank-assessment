@@ -77,7 +77,16 @@ export default function StepperComponent({
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "25px",
+        flex: "1",
+      }}
+    >
       <div className="stepsHeader">{stepsHeader[activeStep]}</div>
       <Stepper className="" nonLinear activeStep={activeStep} disabled={true}>
         {steps.map((label, index) => (

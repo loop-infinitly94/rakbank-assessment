@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { postUserDetails } from "../api/PostUser";
+import { putUserDetails } from "../api/PutUser";
 
 const initialState = {
     userData: {
@@ -54,9 +55,24 @@ const userDetailsSlice = createSlice({
             })
             .addCase(postUserDetails.fulfilled, (state, action) => {
                 state.status = "success"
+                localStorage.setItem("userId", action.payload.data.id)
                 state.userData = action.payload.data
             })
             .addCase(postUserDetails.rejected, (state, action) => {
+                state.status = "failed"
+
+                state.error = action.error.message
+            })
+
+
+            .addCase(putUserDetails.pending, (state, action) => {
+                state.status = "loading"
+            })
+            .addCase(putUserDetails.fulfilled, (state, action) => {
+                state.status = "success"
+                state.userData = action.payload.data
+            })
+            .addCase(putUserDetails.rejected, (state, action) => {
                 state.status = "failed"
 
                 state.error = action.error.message

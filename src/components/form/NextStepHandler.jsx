@@ -1,10 +1,12 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-export default function NextStepHandler() {
+export default function NextStepHandler({ isLastStep }) {
+  console.log(isLastStep);
   return (
-    <div className="actionHandler">
-      <input type="submit" value={"Next"} />
-    </div>
+    <>
+      {isLastStep ? <input type="submit" value={"back"} /> : null}
+      <input type="submit" value={isLastStep ? "Submit" : "Next"} />
+    </>
   );
 }
