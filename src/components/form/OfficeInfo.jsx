@@ -7,7 +7,7 @@ import {
   officeDetailsModified,
   updateStepper,
 } from "../../store/UserDetailsSlice";
-import { deepEquals } from "../../utils/Utils";
+import { deepEquals, getCurrentUser } from "../../utils/Utils";
 import "./Form.css";
 import FormInput from "./FormInput";
 import NextStepHandler from "./NextStepHandler";
@@ -16,7 +16,7 @@ export default function OfficeInfo() {
   const storeData = useSelector((state) => state.userDetails);
   const storedOfficeDetails = storeData.userData.officeDetails;
   const currentStep = storeData.currentStep;
-
+  const userId = getCurrentUser();
   const dispatch = useDispatch();
   const {
     control,
@@ -161,7 +161,14 @@ export default function OfficeInfo() {
             />
           </div>
         </Grid>
-        <Grid item xs={4}>
+        <Grid
+          item
+          xs={4}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <NextStepHandler />
         </Grid>
       </Grid>

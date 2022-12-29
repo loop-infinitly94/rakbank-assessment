@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getUserDetails } from "../api/GetUser";
 import { postUserDetails } from "../api/PostUser";
 import { putUserDetails } from "../api/PutUser";
 
 const initialState = {
     userData: {
+        "id": null,
         "personalDetails": {
             "name": "",
             "email": "",
@@ -31,6 +33,15 @@ const initialState = {
     currentStep: 0
 }
 
+const setData = (data) => {
+    return {
+        personalDetails: data.personalDetails,
+        officeDetails: data.officeDetails,
+        meta: data.meta,
+        id: data.id
+    }
+}
+
 const userDetailsSlice = createSlice({
     name: "userDetails",
     initialState,
@@ -41,6 +52,10 @@ const userDetailsSlice = createSlice({
         },
         officeDetailsModified(state, action) {
             state.userData.officeDetails = { ...state.userData.officeDetails, ...action.payload }
+            return state
+        },
+        updateMetaData(state, action) {
+            state.userData.meta = { ...state.userData.meta, ...action.payload }
             return state
         },
         updateStepper(state, action) {
@@ -56,7 +71,7 @@ const userDetailsSlice = createSlice({
             .addCase(postUserDetails.fulfilled, (state, action) => {
                 state.status = "success"
                 localStorage.setItem("userId", action.payload.data.id)
-                state.userData = action.payload.data
+                state.userData = setData(action.payload.data)
             })
             .addCase(postUserDetails.rejected, (state, action) => {
                 state.status = "failed"
@@ -70,9 +85,23 @@ const userDetailsSlice = createSlice({
             })
             .addCase(putUserDetails.fulfilled, (state, action) => {
                 state.status = "success"
-                state.userData = action.payload.data
+                state.userData = setData(action.payload.data)
             })
             .addCase(putUserDetails.rejected, (state, action) => {
+                state.status = "failed"
+
+                state.error = action.error.message
+            })
+
+            .addCase(getUserDetails.pending, (state, action) => {
+                state.status = "loading"
+            })
+            .addCase(getUserDetails.fulfilled, (state, action) => {
+
+                state.status = "success"
+                state.userData = setData(action.payload.data)
+            })
+            .addCase(getUserDetails.rejected, (state, action) => {
                 state.status = "failed"
 
                 state.error = action.error.message
@@ -82,6 +111,6 @@ const userDetailsSlice = createSlice({
 
 
 
-export const { personalDetailsModified, updateStepper, officeDetailsModified } = userDetailsSlice.actions;
+export const { personalDetailsModified, updateStepper, officeDetailsModified, updateMetaData } = userDetailsSlice.actions;
 
 export default userDetailsSlice.reducer;

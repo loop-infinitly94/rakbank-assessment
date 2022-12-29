@@ -1,11 +1,27 @@
 import { Button } from "@mui/material";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateStepper } from "../../store/UserDetailsSlice";
 
 export default function NextStepHandler({ isLastStep }) {
-  console.log(isLastStep);
+  const storeData = useSelector((state) => state.userDetails);
+  const currentStep = storeData.currentStep;
+  const dispatch = useDispatch();
+  const onBackPressed = () => {
+    console.log(currentStep, "sad")
+    dispatch(updateStepper(currentStep - 1));
+  };
+
   return (
     <>
-      {isLastStep ? <input type="submit" value={"back"} /> : null}
+      {isLastStep ? (
+        <input
+          type="button"
+          className="backButton"
+          value={"back"}
+          onClick={onBackPressed}
+        />
+      ) : null}
       <input type="submit" value={isLastStep ? "Submit" : "Next"} />
     </>
   );

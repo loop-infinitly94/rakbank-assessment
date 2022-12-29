@@ -1,7 +1,9 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { putUserDetails } from "../../api/PutUser";
+import { deepEquals, getCurrentUser, metaDataValidation } from "../../utils/Utils";
 import NextStepHandler from "./NextStepHandler";
 import Profile from "./ProfileInfo";
 
@@ -9,7 +11,10 @@ export default function ConfirmationPage() {
   const storeData = useSelector((state) => state.userDetails);
   const personalDetails = storeData.userData.personalDetails;
   const officeDetails = storeData.userData.officeDetails;
+  const metaData = storeData.userData.meta;
+  const userId = getCurrentUser();
 
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -17,7 +22,20 @@ export default function ConfirmationPage() {
     reset,
   } = useForm();
 
-  const onSubmit = () => {};
+  const onSubmit = (data) => {
+    console.log(metaData, "metaData");
+
+    const checkIfMetaDataAdded = metaDataValidation(metaData);
+
+    if (!checkIfMetaDataAdded) {
+      return;
+    }
+    let updatedObj = {
+      meta: metaData,
+    };
+
+    dispatch(putUserDetails(updatedObj));
+  };
 
   return (
     <form
@@ -34,54 +52,42 @@ export default function ConfirmationPage() {
         >
           <Grid item xs={4}>
             <div className="formGroup">
-              <Typography>Name</Typography>
               <Typography>{personalDetails.name}</Typography>
             </div>
             <div className="formGroup">
-              <Typography>Email</Typography>
               <Typography>{personalDetails.email}</Typography>
             </div>
             <div className="formGroup">
-              <Typography>Mobile number</Typography>
               <Typography>{personalDetails.mobile}</Typography>
             </div>
             <div className="formGroup">
-              <Typography>Address line 1</Typography>
               <Typography>{personalDetails.addr1}</Typography>
             </div>
             <div className="formGroup">
-              <Typography>Address line 2</Typography>
               <Typography>{personalDetails.addr2}</Typography>
             </div>
             <div className="formGroup">
-              <Typography>Address line 3</Typography>
               <Typography>{personalDetails.addr3}</Typography>
             </div>
           </Grid>
           <Grid item xs={4}>
             <div className="formGroup">
-              <Typography>Building Name</Typography>
               <Typography>{officeDetails.buildingName}</Typography>
             </div>
             <div className="formGroup">
-              <Typography>City / Town</Typography>
               <Typography>{officeDetails.city}</Typography>
             </div>
             <div className="formGroup">
-              <Typography>Telephone Number</Typography>
               <Typography>{officeDetails.landLine}</Typography>
             </div>
             <div className="formGroup">
-              <Typography>Address line 1</Typography>
-              <Typography>{personalDetails.addr1}</Typography>
+              <Typography>{officeDetails.addr1}</Typography>
             </div>
             <div className="formGroup">
-              <Typography>Address line 2</Typography>
-              <Typography>{personalDetails.addr2}</Typography>
+              <Typography>{officeDetails.addr2}</Typography>
             </div>
             <div className="formGroup">
-              <Typography>Postbox No</Typography>
-              <Typography>{personalDetails.pbNo}</Typography>
+              <Typography>{officeDetails.pbNo}</Typography>
             </div>
           </Grid>
           <Grid item xs={4}>

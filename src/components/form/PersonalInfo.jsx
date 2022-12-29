@@ -16,6 +16,7 @@ export default function PersonalInfo() {
   const storeData = useSelector((state) => state.userDetails);
   const storedPersonalDetails = storeData.userData.personalDetails;
   const currentStep = storeData.currentStep;
+  const isLoading = storeData.status;
   const dispatch = useDispatch();
   const {
     control,
@@ -28,7 +29,7 @@ export default function PersonalInfo() {
     if (storedPersonalDetails) {
       reset(storedPersonalDetails);
     }
-  }, []);
+  }, [isLoading]);
 
   const onSubmit = (data) => {
     const { name, email, mobile, addr1, addr2, addr3 } = data;
@@ -160,7 +161,14 @@ export default function PersonalInfo() {
             />
           </div>
         </Grid>
-        <Grid item xs={4}>
+        <Grid
+          item
+          xs={4}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <NextStepHandler />
         </Grid>
       </Grid>
