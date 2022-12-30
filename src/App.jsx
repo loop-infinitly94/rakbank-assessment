@@ -6,8 +6,8 @@ import StepperComponent from "./components/stepper/Stepper";
 import "./App.css";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetails } from "./api/GetUser";
 import { getCurrentUser } from "./utils/Utils";
+import { getUserDetails } from "./api/Crud";
 
 const steps = ["Step 1", "Step 2", "Step 3"];
 const stepComponent = [<PersonalInfo />, <OfficeInfo />, <ConfirmationPage />];

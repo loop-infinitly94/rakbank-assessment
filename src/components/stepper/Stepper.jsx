@@ -5,8 +5,6 @@ import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Card } from "@mui/material";
-import { current } from "@reduxjs/toolkit";
 import "./Stepper.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStepper } from "../../store/UserDetailsSlice";
@@ -38,16 +36,6 @@ export default function StepperComponent({
 
   const allStepsCompleted = () => {
     return completedSteps() === totalSteps();
-  };
-
-  const handleNext = () => {
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
-    dispatch(updateStepper(newActiveStep));
   };
 
   const handleStep = (step) => () => {
