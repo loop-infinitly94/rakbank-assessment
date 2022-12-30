@@ -2,8 +2,7 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { postUserDetails } from "../../api/PostUser";
-import { putUserDetails } from "../../api/PutUser";
+import { postUserDetails, putUserDetails } from "../../api/Crud";
 import {
   personalDetailsModified,
   updateStepper,

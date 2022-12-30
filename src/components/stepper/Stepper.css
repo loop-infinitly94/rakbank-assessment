@@ -21,15 +21,17 @@
 }
 
 .stepperHeader {
-    padding: 20px;
-}
-
-.stepperHeader {
     display: flex;
     justify-content: space-evenly;
+    padding: 20px;
 }
 
 .eachStep {
     display: flex;
     flex-direction: column;
+}
+
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
+    color: #EE1B25 !important
 }

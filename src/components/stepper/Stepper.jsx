@@ -73,7 +73,6 @@ export default function StepperComponent({
       <div className="stepsHeader">{stepsHeader[activeStep]}</div>
       <Stepper
         className=""
-        nonLinear
         activeStep={activeStep ? activeStep : 0}
         disabled={true}
       >

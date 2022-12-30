@@ -2,7 +2,7 @@ import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { putUserDetails } from "../../api/PutUser";
+import { putUserDetails } from "../../api/Crud";
 import {
   deepEquals,
   getCurrentUser,
@@ -19,18 +19,12 @@ export default function ConfirmationPage() {
   const userId = getCurrentUser();
 
   const dispatch = useDispatch();
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isValid },
-    reset,
-  } = useForm();
+  const { handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     console.log(metaData, "metaData");
 
     const checkIfMetaDataAdded = metaDataValidation(metaData);
-
     if (!checkIfMetaDataAdded) {
       return;
     }

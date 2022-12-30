@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserDetails } from "../api/GetUser";
-import { postUserDetails } from "../api/PostUser";
-import { putUserDetails } from "../api/PutUser";
+import { getUserDetails, postUserDetails, putUserDetails } from "../api/Crud";
 
 const initialState = {
     userData: {
@@ -56,13 +54,12 @@ const userDetailsSlice = createSlice({
             return state
         },
         updateMetaData(state, action) {
-            console.log(action.payload)
             state.userData = setStoreData(state.userData, action.payload)
             return state
         },
         updateStepper(state, action) {
             let currentStep = { "currentStep": action.payload }
-            state.currentStep = currentStep;
+            state.currentStep = action.payload;
             state.userData.meta = { ...state.userData.meta, ...currentStep }
             return state
         }
