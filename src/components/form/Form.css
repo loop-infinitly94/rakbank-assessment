@@ -60,6 +60,28 @@ form {
     gap: 10px;
 }
 
+.successPage {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    align-items: center;
+}
+
+.successPageCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.successIcon{
+    color: green;
+}
+
+.sigCanvas {
+    border: 1px dotted black;
+}
+
 input[type="submit"] {
     padding: 10px;
 

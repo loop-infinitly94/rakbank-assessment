@@ -10,6 +10,7 @@ import { getCurrentUser } from "./utils/Utils";
 import { getUserDetails } from "./api/Crud";
 import NotificationHandler from "./components/notification/NotificationHandler";
 import Header from "./components/header/Header";
+import SuccessPage from "./components/form/SuccessPage";
 
 const steps = ["Step 1", "Step 2", "Step 3"];
 const stepComponent = [<PersonalInfo />, <OfficeInfo />, <ConfirmationPage />];
@@ -17,6 +18,7 @@ const stepsHeader = ["Personal Info", "Office Info", "Confirmation Page"];
 
 function App() {
   const isLoading = useSelector((state) => state.userDetails).status;
+  const isCompleted = useSelector((state) => state.userDetails).isCompleted;
 
   const dispatch = useDispatch();
 
@@ -31,6 +33,7 @@ function App() {
     <div className="MainContainer">
       <Header />
       <NotificationHandler />
+
       <div className="Content">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -38,11 +41,15 @@ function App() {
         >
           <CircularProgress color="inherit" />
         </Backdrop>
-        <StepperComponent
-          steps={steps}
-          stepComponent={stepComponent}
-          stepsHeader={stepsHeader}
-        />
+        {isCompleted ? (
+          <SuccessPage />
+        ) : (
+          <StepperComponent
+            steps={steps}
+            stepComponent={stepComponent}
+            stepsHeader={stepsHeader}
+          />
+        )}
       </div>
     </div>
   );

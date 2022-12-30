@@ -28,7 +28,8 @@ const initialState = {
     },
     status: 'idle',
     error: null,
-    currentStep: null
+    currentStep: null,
+    isCompleted: false
 }
 
 const setStoreData = (userData, data) => {
@@ -63,6 +64,10 @@ const userDetailsSlice = createSlice({
             state.status = "idle";
             state.userData.meta = { ...state.userData.meta, ...currentStep }
             return state
+        },
+        resetStore(state, action) {
+            state = initialState
+            return state
         }
     },
     extraReducers: (builder) => {
@@ -86,6 +91,10 @@ const userDetailsSlice = createSlice({
             })
             .addCase(putUserDetails.fulfilled, (state, action) => {
                 state.status = "success"
+                console.log(state.userData.meta.currentStep, action.payload.data.meta.currentStep)
+                if (state.userData.meta.currentStep === action.payload.data.meta.currentStep) {
+                    state.isCompleted = true
+                }
                 state.userData = setStoreData(state.userData, action.payload.data)
             })
             .addCase(putUserDetails.rejected, (state, action) => {
@@ -114,6 +123,6 @@ const userDetailsSlice = createSlice({
 
 
 
-export const { personalDetailsModified, updateStepper, officeDetailsModified, updateMetaData } = userDetailsSlice.actions;
+export const { personalDetailsModified, updateStepper, officeDetailsModified, updateMetaData, resetStore } = userDetailsSlice.actions;
 
 export default userDetailsSlice.reducer;

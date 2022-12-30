@@ -138,7 +138,11 @@ const Profile = () => {
             penColor="black"
             ref={mousePadRef}
             onEnd={setSignature}
-            canvasProps={{ width: 600, height: 400, className: "sigCanvas" }}
+            canvasProps={{
+              width: 600,
+              height: 400,
+              className: "sigCanvas",
+            }}
           />
           <Button onClick={resetSignature} variant="contained">
             Reset
