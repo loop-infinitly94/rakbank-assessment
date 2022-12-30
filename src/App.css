@@ -13,19 +13,13 @@
 .MainContainer {
   display: flex;
   flex-direction: column;
-  height: 100%;
-}
 
-header {
-  display: flex;
-  justify-content: center;
-  height: 50px;
-  background: white;
+  height: 100%;
 }
 
 .Content {
   display: flex;
   flex: 1 1;
-  /* flex-direction: column; */
+
   padding: 25px;
 }

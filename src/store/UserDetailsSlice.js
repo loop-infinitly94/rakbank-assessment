@@ -60,6 +60,7 @@ const userDetailsSlice = createSlice({
         updateStepper(state, action) {
             let currentStep = { "currentStep": action.payload }
             state.currentStep = action.payload;
+            state.status = "idle";
             state.userData.meta = { ...state.userData.meta, ...currentStep }
             return state
         }
@@ -99,7 +100,7 @@ const userDetailsSlice = createSlice({
                 state.status = "loading"
             })
             .addCase(getUserDetails.fulfilled, (state, action) => {
-                state.status = "success"
+                state.status = "getSuccess"
                 state.currentStep = action.payload.data.meta.currentStep
                 state.userData = setStoreData(state.userData, action.payload.data)
             })

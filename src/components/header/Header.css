@@ -1,0 +1,23 @@
+header {
+    display: flex;
+    justify-content: end;
+    height: 50px;
+    background: white;
+}
+
+.headerContainer {
+    display: flex;
+}
+
+.headerDrawer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem;
+    width: 18rem;
+    border-bottom-left-radius: 5px;
+
+    background-color: #EE1B25;
+    color: white;
+}

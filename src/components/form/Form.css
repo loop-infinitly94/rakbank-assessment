@@ -6,52 +6,50 @@ form {
 .personalInfoContainer {
     display: flex;
     flex-direction: column;
-    width: 20rem;
     gap: 1rem;
+
+    width: 20rem;
 }
 
 .formGroup {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     margin-bottom: 10px;
 }
 
-input[type="submit"] {
-    background: red;
-    color: white;
-    text-transform: uppercase;
-    border: 1px solid black;
-    padding: 10px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
 .backButton {
+    padding: 10px;
+
+    border: 1px solid black;
+    border-radius: 6px;
+
+    cursor: pointer;
+
     background: grey;
     color: white;
+
     text-transform: uppercase;
-    border: 1px solid black;
-    padding: 10px;
-    border-radius: 6px;
-    cursor: pointer;
 }
 
 .profileInfoContainer {
     display: flex;
     flex-direction: column;
-    padding: 50px;
     gap: 20px;
+
+    padding: 50px;
 }
 
 .avatarContainer,
 .signatureContainer {
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-evenly;
+
+    padding: 20px;
+
     border-radius: 10px;
     border: 1px dotted black;
-    padding: 20px;
-    justify-content: space-evenly;
 }
 
 .captureForm {
@@ -60,4 +58,19 @@ input[type="submit"] {
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+input[type="submit"] {
+    padding: 10px;
+
+    border-radius: 6px;
+    border: 1px solid black;
+
+    background: red;
+    color: white;
+
+    cursor: pointer;
+
+
+    text-transform: uppercase;
 }
