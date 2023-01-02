@@ -8,9 +8,9 @@ import {
   updateStepper,
 } from "../../store/UserDetailsSlice";
 import { deepEquals, getCurrentUser } from "../../utils/Utils";
-import "./Form.css";
 import FormInput from "./FormInput";
 import NextStepHandler from "./NextStepHandler";
+import "./Form.css";
 
 const Office_Info = 1;
 

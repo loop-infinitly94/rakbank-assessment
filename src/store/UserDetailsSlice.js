@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserDetails, postUserDetails, putUserDetails } from "../api/Crud";
 
-const initialState = {
+export const initialState = {
     userData: {
         "id": null,
         "personalDetails": {
@@ -27,7 +27,7 @@ const initialState = {
             "isCompleted": false // determines if the application is regitred
         }
     },
-    status: 'idle', 
+    status: 'idle',
     error: null,
     currentStep: null
 }
@@ -37,12 +37,11 @@ const setStoreData = (userData, data) => {
         personalDetails: { ...userData.personalDetails, ...data.personalDetails },
         officeDetails: { ...userData.officeDetails, ...data.officeDetails },
         meta: { ...userData.meta, ...data.meta },
-        id: data.id,
-        currentStep: data.meta.currentStep ? data.meta.currentStep : userData.meta.currentStep
+        id: data.id
     }
 }
 
-const userDetailsSlice = createSlice({
+export const userDetailsSlice = createSlice({
     name: "userDetails",
     initialState,
     reducers: {

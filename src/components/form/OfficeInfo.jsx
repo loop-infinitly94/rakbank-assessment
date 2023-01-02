@@ -26,7 +26,6 @@ export default function OfficeInfo() {
   } = useForm();
 
   useEffect(() => {
-    console.log(storedOfficeDetails);
     if (storedOfficeDetails) {
       reset(storedOfficeDetails);
     }
