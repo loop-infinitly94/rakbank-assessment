@@ -20,7 +20,7 @@ export default function NotificationHandler() {
   };
 
   return (
-    <div>
+    <>
       <Snackbar
         open={openSnackbar}
         autoHideDuration={6000}
@@ -40,6 +40,6 @@ export default function NotificationHandler() {
           </Alert>
         )}
       </Snackbar>
-    </div>
+    </>
   );
 }

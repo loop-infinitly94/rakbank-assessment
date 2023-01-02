@@ -23,13 +23,13 @@ const initialState = {
         "meta": {
             "avatar": "",
             "signature": "",
-            "currentStep": 0
+            "currentStep": 0, // currentStep of the user in the stepper
+            "isCompleted": false // determines if the application is regitred
         }
     },
-    status: 'idle',
+    status: 'idle', 
     error: null,
-    currentStep: null,
-    isCompleted: false
+    currentStep: null
 }
 
 const setStoreData = (userData, data) => {
@@ -91,10 +91,6 @@ const userDetailsSlice = createSlice({
             })
             .addCase(putUserDetails.fulfilled, (state, action) => {
                 state.status = "success"
-                console.log(state.userData.meta.currentStep, action.payload.data.meta.currentStep)
-                if (state.userData.meta.currentStep === action.payload.data.meta.currentStep) {
-                    state.isCompleted = true
-                }
                 state.userData = setStoreData(state.userData, action.payload.data)
             })
             .addCase(putUserDetails.rejected, (state, action) => {
@@ -110,6 +106,7 @@ const userDetailsSlice = createSlice({
             })
             .addCase(getUserDetails.fulfilled, (state, action) => {
                 state.status = "getSuccess"
+                console.log(action.payload.data)
                 state.currentStep = action.payload.data.meta.currentStep
                 state.userData = setStoreData(state.userData, action.payload.data)
             })
@@ -123,6 +120,6 @@ const userDetailsSlice = createSlice({
 
 
 
-export const { personalDetailsModified, updateStepper, officeDetailsModified, updateMetaData, resetStore } = userDetailsSlice.actions;
+export const { personalDetailsModified, updateStepper, officeDetailsModified, updateMetaData, resetStore, setIsCompleted } = userDetailsSlice.actions;
 
 export default userDetailsSlice.reducer;

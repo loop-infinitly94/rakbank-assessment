@@ -82,6 +82,16 @@ form {
     border: 1px dotted black;
 }
 
+span.validationMessage {
+    display: flex;
+    justify-content: center;
+
+    color: red;
+    
+    font-size: 18px;
+    font-weight: bold;
+}
+
 input[type="submit"] {
     padding: 10px;
 

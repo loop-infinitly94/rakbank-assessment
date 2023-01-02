@@ -1,10 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { API_URL } from "../utils/Constants";
+import axiosInstance from "./AxiosInstance";
 
 export const getUserDetails = createAsyncThunk('users/getUserDetails', async (id) => {
     try {
-        const response = await axios.get(`${API_URL}/${id}`);
+        const response = await axiosInstance.get(`/${id}`);
         return response
     } catch (error) {
         return error.message
@@ -13,14 +12,14 @@ export const getUserDetails = createAsyncThunk('users/getUserDetails', async (id
 
 export const postUserDetails = createAsyncThunk('users/postUserDetails', async (data) => {
     try {
-        const response = await axios.post(API_URL, data);
+        const response = await axiosInstance.post('', data);
         return response
     } catch (error) {
         return error.message
     }
 })
 
-export const putUserDetails = createAsyncThunk('users/putUserDetails', async (data, { getState }) => {
+export const putUserDetails = createAsyncThunk('users/putUserDetails', async (data, { getState, dispatch }) => {
     let userData = getState().userDetails.userData
     let putData = {
         personalDetails: { ...userData.personalDetails, ...data.personalDetails },
@@ -29,7 +28,7 @@ export const putUserDetails = createAsyncThunk('users/putUserDetails', async (da
     }
     try {
         const id = localStorage.getItem("userId")
-        const response = await axios.put(`${API_URL}/${id}`, putData);
+        const response = await axiosInstance.put(`/${id}`, putData);
         return response
     } catch (error) {
         return error.message

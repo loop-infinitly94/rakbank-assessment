@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { putUserDetails } from "../../api/Crud";
@@ -16,31 +16,40 @@ export default function ConfirmationPage() {
   const personalDetails = storeData.userData.personalDetails;
   const officeDetails = storeData.userData.officeDetails;
   const metaData = storeData.userData.meta;
+  const [validationError, setValidationError] = useState(false);
   const userId = getCurrentUser();
 
   const dispatch = useDispatch();
   const { handleSubmit } = useForm();
-
+  const checkIfMetaDataAdded = metaDataValidation(metaData);
   const onSubmit = (data) => {
-    console.log(metaData, "metaData");
-
-    const checkIfMetaDataAdded = metaDataValidation(metaData);
     if (!checkIfMetaDataAdded) {
+      setValidationError(true);
       return;
     }
+    setValidationError(false);
+
+    let tempMetaData = Object.assign({}, metaData);
+    tempMetaData.isCompleted = true;
     let updatedObj = {
-      meta: metaData,
+      meta: tempMetaData,
     };
 
     dispatch(putUserDetails(updatedObj));
   };
 
+  console.log(checkIfMetaDataAdded);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       style={{ flexDirection: "column", gap: "20px" }}
     >
       <div className="confirmationPageContainer">
+        {validationError ? (
+          <span className="validationMessage">
+            Avatar / Signature is misssing
+          </span>
+        ) : null}
         <Grid
           container
           spacing={2}

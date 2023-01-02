@@ -5,7 +5,7 @@ import { updateStepper } from "../../store/UserDetailsSlice";
 
 export default function NextStepHandler({ isLastStep }) {
   const storeData = useSelector((state) => state.userDetails);
-  const currentStep = storeData.currentStep;
+  const currentStep = storeData.userData.meta.currentStep;
   const dispatch = useDispatch();
   const onBackPressed = () => {
     console.log(currentStep, "sad")

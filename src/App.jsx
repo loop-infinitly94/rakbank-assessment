@@ -18,7 +18,8 @@ const stepsHeader = ["Personal Info", "Office Info", "Confirmation Page"];
 
 function App() {
   const isLoading = useSelector((state) => state.userDetails).status;
-  const isCompleted = useSelector((state) => state.userDetails).isCompleted;
+  const isCompleted = useSelector((state) => state.userDetails).userData.meta
+    .isCompleted;
 
   const dispatch = useDispatch();
 
