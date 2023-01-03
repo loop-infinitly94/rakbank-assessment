@@ -25,7 +25,7 @@
 .stepperHeader {
     display: flex;
     justify-content: space-evenly;
-
+    
     padding: 20px;
 }
 
@@ -34,7 +34,7 @@
     flex-direction: column;
 }
 
-.Mui-completed,
-.Mui-active {
+svg.Mui-completed,
+svg.Mui-active {
     color: #EE1B25 !important
 }
