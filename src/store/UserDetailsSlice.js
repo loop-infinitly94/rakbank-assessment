@@ -32,6 +32,11 @@ export const initialState = {
     currentStep: null
 }
 
+/**
+ * @param {Object} userData prevState of userData
+ * @param {Object} data response from server
+ * @returns {Object} updated userData 
+ */
 const setStoreData = (userData, data) => {
     return {
         personalDetails: { ...userData.personalDetails, ...data.personalDetails },

@@ -22,6 +22,11 @@ export default function ConfirmationPage() {
   const dispatch = useDispatch();
   const { handleSubmit } = useForm();
   const checkIfMetaDataAdded = metaDataValidation(metaData);
+
+  /**
+   * @description sets the validation message if either avatar or signature is missing
+   * 
+   */
   const onSubmit = (data) => {
     if (!checkIfMetaDataAdded) {
       setValidationError(true);
@@ -38,7 +43,6 @@ export default function ConfirmationPage() {
     dispatch(putUserDetails(updatedObj));
   };
 
-  console.log(checkIfMetaDataAdded);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

@@ -22,7 +22,7 @@ export default function PersonalInfo() {
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     reset,
   } = useForm();
 
@@ -30,7 +30,7 @@ export default function PersonalInfo() {
     if (storedPersonalDetails) {
       reset(storedPersonalDetails);
     }
-  }, [isLoading]);
+  }, [isLoading, storedPersonalDetails, reset]);
 
   const onSubmit = (data) => {
     const { name, email, mobile, addr1, addr2, addr3 } = data;
@@ -55,6 +55,7 @@ export default function PersonalInfo() {
     );
     const userId = getCurrentUser();
 
+    // make server call only if there is a change in data else just update the stepper
     if (checkIfDataChanged) {
       dispatch(updateStepper(Office_Info));
       return;
