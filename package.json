@@ -2,7 +2,7 @@
   "name": "rakbank",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://loop-infinitly94.github.io/rakbank-assessment",
+  "homepage": "https://loop-infinitly94.github.io/rakbank-assessment/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
