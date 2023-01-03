@@ -71,10 +71,11 @@ export default function PersonalInfo() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
         container
-        spacing={2}
         direction="row"
         justifyContent="center"
         alignItems="center"
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
       >
         <Grid item xs={8}>
           <div className="formGroup">

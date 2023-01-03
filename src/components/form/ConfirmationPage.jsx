@@ -51,10 +51,11 @@ export default function ConfirmationPage() {
         ) : null}
         <Grid
           container
-          spacing={2}
           direction="row"
           justifyContent="center"
           alignItems="center"
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid item xs={4}>
             <div className="formGroup">
