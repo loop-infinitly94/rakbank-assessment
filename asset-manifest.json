@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/rakbank-assessment/static/css/main.6fdd525d.css",
+    "main.js": "/rakbank-assessment/static/js/main.951124bb.js",
+    "static/js/787.deb7b4a8.chunk.js": "/rakbank-assessment/static/js/787.deb7b4a8.chunk.js",
+    "index.html": "/rakbank-assessment/index.html",
+    "main.6fdd525d.css.map": "/rakbank-assessment/static/css/main.6fdd525d.css.map",
+    "main.951124bb.js.map": "/rakbank-assessment/static/js/main.951124bb.js.map",
+    "787.deb7b4a8.chunk.js.map": "/rakbank-assessment/static/js/787.deb7b4a8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6fdd525d.css",
+    "static/js/main.951124bb.js"
+  ]
+}
