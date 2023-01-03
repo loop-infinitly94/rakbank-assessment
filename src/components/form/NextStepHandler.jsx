@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStepper } from "../../store/UserDetailsSlice";
@@ -7,8 +6,8 @@ export default function NextStepHandler({ isLastStep }) {
   const storeData = useSelector((state) => state.userDetails);
   const currentStep = storeData.userData.meta.currentStep;
   const dispatch = useDispatch();
+
   const onBackPressed = () => {
-    console.log(currentStep, "sad")
     dispatch(updateStepper(currentStep - 1));
   };
 

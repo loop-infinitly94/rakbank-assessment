@@ -1,7 +1,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import { renderWithProviders } from '../../utils/test-utils'
-import { officeDetailsModified, personalDetailsModified } from '../../store/UserDetailsSlice'
+import { officeDetailsModified } from '../../store/UserDetailsSlice'
 import { Store } from '../../store/store'
 import OfficeInfo from './OfficeInfo'
 // import { act } from 'react-dom/test-utils'

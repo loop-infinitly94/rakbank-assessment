@@ -3,11 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { putUserDetails } from "../../api/Crud";
-import {
-  deepEquals,
-  getCurrentUser,
-  metaDataValidation,
-} from "../../utils/Utils";
+import { metaDataValidation } from "../../utils/Utils";
 import NextStepHandler from "./NextStepHandler";
 import Profile from "./ProfileInfo";
 
@@ -17,7 +13,6 @@ export default function ConfirmationPage() {
   const officeDetails = storeData.userData.officeDetails;
   const metaData = storeData.userData.meta;
   const [validationError, setValidationError] = useState(false);
-  const userId = getCurrentUser();
 
   const dispatch = useDispatch();
   const { handleSubmit } = useForm();
@@ -25,7 +20,7 @@ export default function ConfirmationPage() {
 
   /**
    * @description sets the validation message if either avatar or signature is missing
-   * 
+   *
    */
   const onSubmit = (data) => {
     if (!checkIfMetaDataAdded) {

@@ -1,12 +1,10 @@
 import React from 'react'
-import { screen, act, fireEvent, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 // We're using our own custom render function and not RTL's render.
 import PersonalInfo from './PersonalInfo'
 import { renderWithProviders } from '../../utils/test-utils'
-import { initialState, personalDetailsModified } from '../../store/UserDetailsSlice'
+import { personalDetailsModified } from '../../store/UserDetailsSlice'
 import { Store } from '../../store/store'
-import userEvent from '@testing-library/user-event'
-import NextStepHandler from './NextStepHandler'
 // import { act } from 'react-dom/test-utils'
 
 describe("Personal Info Test Cases", () => {

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ConfirmationPage from "./components/form/ConfirmationPage";
 import OfficeInfo from "./components/form/OfficeInfo";
 import PersonalInfo from "./components/form/PersonalInfo";
 import StepperComponent from "./components/stepper/Stepper";
 import "./App.css";
-import { Alert, Backdrop, CircularProgress, Snackbar } from "@mui/material";
+import { Backdrop, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "./utils/Utils";
 import { getUserDetails } from "./api/Crud";

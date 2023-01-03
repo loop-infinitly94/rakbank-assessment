@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Webcam from "react-webcam";
 import FaceIcon from "@mui/icons-material/Face";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import DialogWrapper from "../dialog/Dialog";
 import { getImageReader } from "../../utils/Utils";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,13 +30,13 @@ const Profile = () => {
   const webcamRef = React.useRef(null);
   const mousePadRef = React.useRef(null);
 
-  const capture = React.useCallback(() => {
+  const capture = useCallback(() => {
     const pictureSrc = webcamRef.current.getScreenshot();
     const meta = {
       avatar: pictureSrc,
     };
     dispatch(updateMetaData({ meta }));
-  });
+  }, [dispatch]);
 
   const handleUpload = async (event) => {
     const files = Array.from(event.target.files);

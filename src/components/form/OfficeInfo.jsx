@@ -1,4 +1,4 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import {
   officeDetailsModified,
   updateStepper,
 } from "../../store/UserDetailsSlice";
-import { deepEquals, getCurrentUser } from "../../utils/Utils";
+import { deepEquals } from "../../utils/Utils";
 import "./Form.css";
 import FormInput from "./FormInput";
 import NextStepHandler from "./NextStepHandler";
@@ -21,7 +21,7 @@ export default function OfficeInfo() {
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     reset,
   } = useForm();
 
@@ -29,7 +29,7 @@ export default function OfficeInfo() {
     if (storedOfficeDetails) {
       reset(storedOfficeDetails);
     }
-  }, []);
+  }, [storedOfficeDetails, reset]);
 
   const onSubmit = (data) => {
     const { buildingName, city, landLine, addr1, addr2, pbNo } = data;

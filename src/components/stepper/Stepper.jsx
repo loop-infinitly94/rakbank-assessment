@@ -28,10 +28,6 @@ export default function StepperComponent({
     return Object.keys(completed).length;
   };
 
-  const isLastStep = () => {
-    return activeStep === totalSteps() - 1;
-  };
-
   const allStepsCompleted = () => {
     return completedSteps() === totalSteps();
   };
